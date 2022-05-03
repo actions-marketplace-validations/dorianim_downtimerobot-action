@@ -3,9 +3,9 @@ LABEL stage=intermediate
 COPY . /downtimerobot
 WORKDIR /downtimerobot
 ENV GO111MODULE=on
-RUN apt update && apt install -y ca-certificates && \
-    CGO_ENABLED=1 GOOS=linux GOARCH=amd64 && \
-    go test ./... && \
+RUN apt update && apt install -y ca-certificates
+
+RUN CGO_ENABLED=1 GOOS=linux GOARCH=amd64 && \
     go build -a --installsuffix cgo -v -tags netgo -ldflags '-extldflags "-static"' -o /downtimerobot .
 
 FROM scratch
