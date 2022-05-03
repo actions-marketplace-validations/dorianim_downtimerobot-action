@@ -1,0 +1,125 @@
+{{ define "baseof" }}
+<!doctype html>
+<html lang="en" class="compact dark">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <title>{{.Title}}</title>
+
+    <!-- Styles -->
+    <link href="/static/css/app.css" rel="stylesheet">
+
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header id="main-header">
+        <div class="uk-container">
+            <div class="uk-flex uk-flex-between uk-flex-wrap uk-flex-middle">
+                <div class="logo-wrapper">
+                    <div>
+                        {{ if .Icon }}
+                        <img alt="{{.Title}}" class="page-logo"
+                            src="{{.Icon}}">
+                        {{ else }}
+                        <h1 class="uk-h2 text-logo uk-margin-remove">{{.Title}}</h1>
+                        {{ end }}
+
+                    </div>
+                    {{ block "header" . }}
+                    {{ end }}
+                </div>
+                <div class="uk-text-right@m psp-header-info uk-flex uk-flex-middle uk-flex-between">
+                    <div>
+                        <h2 class="uk-h4 uk-margin-remove">Service status</h2>
+                        <div class="uk-flex-inline">
+                            <div class="font-14 last-update">Last updated <span class="last-updated"></span> | Next
+                                update in <span class="counter">59</span> sec.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="uk-container">
+        {{ block "body" . }}
+        {{ end }}
+    </div>
+
+    <footer id="main-footer"
+        class="uk-container uk-text-muted font-14 uk-flex uk-flex-between uk-flex-middle uk-margin-large-top uk-margin-large-bottom">
+        <div class="uk-visible@m">
+            <button x-data type="button" class="enter-fullscreen uk-flex-inline uk-flex-middle m-r-10" @click="$store.siteData.toggleFullscreen()">
+                <template x-if="!$store.siteData.fullscreen">
+                    <svg class="icon icon-maximize font-18 m-r-5">
+                        <use xlink:href="/static/img/symbol-defs.svg#icon-maximize"></use>
+                    </svg>
+                </template>
+                <template x-if="$store.siteData.fullscreen">
+                    <svg class="icon icon-minimize font-18 m-r-5">
+                        <use xlink:href="/static/img/symbol-defs.svg#icon-minimize"></use>
+                    </svg>
+                </template>
+                <span class="label" x-text="$store.siteData.fullscreen ? 'Leave':'Enter'"></span>&nbsp;fullscreen mode
+            </button>
+            <button x-data class="toggle-color uk-flex-inline uk-flex-middle" @click="$store.siteData.toggleDarkMode()">
+                <template x-if="$store.siteData.darkMode">
+                    <svg class="icon icon-maximize font-18 m-r-5">
+                        <use xlink:href="/static/img/symbol-defs.svg#icon-moon"></use>
+                    </svg>
+                </template>
+                <template x-if="!$store.siteData.darkMode">
+                    <svg class="icon icon-minimize font-18 m-r-5">
+                        <use xlink:href="/static/img/symbol-defs.svg#icon-sun"></use>
+                    </svg>
+                </template>
+                Color scheme&nbsp;<span class="label" x-text="$store.siteData.darkMode ? 'dark':'light'"></span>
+            </button>
+        </div>
+        <div>
+            <a href="https://docs.github.com/en/github/site-policy/github-privacy-statement" rel="nofollow noopener"
+                target="_blank">Privacy policy</a>
+            <span class="uk-margin-small-left">
+                Powered by
+                <a href="https://github.com">
+                    <img src="/static/img/GitHub_Logo.png" alt="GitHub Logo" width="120">
+                </a>
+            </span>
+        </div>
+    </footer>
+
+    <audio id="notification">
+        <source src="/static/sounds/notification.mp3" type="audio/mpeg">
+    </audio>
+
+    {{ block "jsSources" . }}
+    <script src="/static/js/lib/uikit.min.js"></script>
+    <script src="/static/js/lib/purify.min.js"></script>
+    <script src="/static/js/lib/svgxuse.min.js"></script>
+    <script src="/static/js/lib/alpine.min.js" defer></script>
+    <script src="/static/js/downtimeRobot.js"></script>
+    {{ end }}
+    {{ block "js" . }}
+    {{ end }}
+
+    <div id="error-modal" uk-modal>
+        <div class="uk-modal-dialog uk-modal-body uk-text-center">
+            <svg class="icon icon-alert-triangle uk-text-danger" style="font-size: 80px;">
+                <use xlink:href="/static/img/symbol-defs.svg#icon-alert-triangle"></use>
+            </svg>
+            <h2 class="uk-modal-title uk-margin-small-top">There was an error while fetching the data</h2>
+            <div>
+                <a href="#" class="uk-button uk-button-primary" onClick="location.reload(); return false;">Reload the
+                    page</a>
+            </div>
+        </div>
+    </div>
+
+    {{ end }}

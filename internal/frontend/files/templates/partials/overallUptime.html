@@ -1,0 +1,15 @@
+{{ define "overallUptime" }}
+<h2 class="uk-h3 uk-margin-small-bottom">Overall Uptime</h2>
+<div class="card uk-margin-bottom" id="overview" x-data="loadable('serviceList')">
+    <section id="overall-uptime" class="uk-child-width-expand@s uk-grid-divider" uk-grid>
+        <template x-for="days in [1, 7, 30, 90]">
+            <div>
+                <template x-if="data">
+                    <h3 class="uk-h4 uk-margin-remove" x-text="toPercent(data.statistics.uptime[days])"></h3>
+                </template>
+                <div class="uk-text-muted" x-text="days == 1 ? 'Last 24 hours':'Last ' + days + ' days'"></div>
+            </div>
+        </template>
+    </section>
+</div>
+{{ end }}

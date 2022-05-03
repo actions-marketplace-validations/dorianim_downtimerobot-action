@@ -1,0 +1,7 @@
+services:
+  webserver:
+    image: pierrezemb/gostatic
+    volumes:
+      -  ./public:/srv/http
+    ports:
+      - 8085:8043
