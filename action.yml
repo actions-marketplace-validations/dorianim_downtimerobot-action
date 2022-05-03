@@ -1,0 +1,10 @@
+name: 'Downtimerobot action'
+description: 'Monitor your services using https://github.com/dorianim/downtimerobot-action'
+branding:
+  icon: server
+  color: green
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - "run"
