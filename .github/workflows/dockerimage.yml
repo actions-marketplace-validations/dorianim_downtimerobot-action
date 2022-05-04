@@ -31,5 +31,4 @@ jobs:
           tags: |
             main
             latest
-            type=sha
           file: Dockerfile
