@@ -105,5 +105,5 @@ function announcementTypeToIconName(announcementType) {
 }
 
 function generateAnnouncementIcon(announcementType) {
-    return `<use xlink:href="/static/img/symbol-defs.svg#icon-${announcementTypeToIconName(announcementType)}"></use>`
+    return `<use xlink:href="static/img/symbol-defs.svg#icon-${announcementTypeToIconName(announcementType)}"></use>`
 }
