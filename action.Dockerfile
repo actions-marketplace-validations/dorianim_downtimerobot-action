@@ -1,1 +1,1 @@
-FROM ghcr.io/dorianim/downtimerobot-action:main
+FROM ghcr.io/dorianim/downtimerobot-action:latest
