@@ -27,4 +27,4 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: dorianim/downtimerobot-action:latest
+          tags: ghcr.io/dorianim/downtimerobot-action:latest
